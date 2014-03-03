@@ -40,8 +40,8 @@ end
 
  @scoreboard={}
  scores.each do |score|
-    @scoreboard["#{score[:home_team]}"]=[[0],[0]]
-    @scoreboard["#{score[:away_team]}"]=[[0],[0]]
+    @scoreboard["#{score[:home_team]}"]=[0,0]
+    @scoreboard["#{score[:away_team]}"]=[0,0]
  end
 scores.each do |score|
   if score[:home_score]>score[:away_score]
