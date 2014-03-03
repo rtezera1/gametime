@@ -45,13 +45,14 @@ end
  end
 scores.each do |score|
   if score[:home_score]>score[:away_score]
-      @scoreboard["#{score[:home_team]}"][0]<<1
-      @scoreboard["#{score[:away_team]}"][1]<<1
+      @scoreboard["#{score[:home_team]}"][0] += 1
+      @scoreboard["#{score[:away_team]}"][1] += 1
   else
-      @scoreboard["#{score[:home_team]}"][1]<<1
-      @scoreboard["#{score[:away_team]}"][0]<<1
+      @scoreboard["#{score[:home_team]}"][1] += 1
+      @scoreboard["#{score[:away_team]}"][0] += 1
   end
 end
+
   i=1
   @scoreboard.each do |key, value|
     @ranking<<"#{i} #{key} wins:#{add_all(value[0])} loses:#{add_all(value[1])}"
