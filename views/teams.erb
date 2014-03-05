@@ -3,8 +3,10 @@
 </head>
 <body>
   <ul>
-      <li><%= @ranking %></li>
-      <li><%= @team %></li>
-      <li></li>
+    <%i=0%>
+    <%@y.each do |key, value|%>
+    <% i+=1 %>
+<li><%= "#{i} #{key} wins:#{value[0]} loses:#{value[1]}" %></li>
+   <%end%>
   </ul>
 </body>

@@ -34,43 +34,23 @@ scores=[
 
 get '/leaderboard' do
 
- def add_all(array)
-  array.inject { |subtotal, price| subtotal + price}
-end
-
- @scoreboard={}
- scores.each do |score|
-    @scoreboard["#{score[:home_team]}"]=[[0],[0]]
-    @scoreboard["#{score[:away_team]}"]=[[0],[0]]
- end
-scores.each do |score|
-  if score[:home_score]>score[:away_score]
-      @scoreboard["#{score[:home_team]}"][0]<<1
-      @scoreboard["#{score[:away_team]}"][1]<<1
-  else
-      @scoreboard["#{score[:home_team]}"][1]<<1
-      @scoreboard["#{score[:away_team]}"][0]<<1
-  end
-end
-  i=1
-  @scoreboard.each do |key, value|
-    @ranking<<"#{i} #{key} wins:#{add_all(value[0])} loses:#{add_all(value[1])}"
-   i+=1
-  end
-    @ranking
-erb :teams
-end
-@team=[]
-get '/leaderboard/:teams' do
-  @scoreboard.each do |key, value|
-    if key==params[:team]
-      @teams<<"#{key} #{value}"
+   @scoreboard={}
+   scores.each do |score|
+      @scoreboard["#{score[:home_team]}"]=[0,0]
+      @scoreboard["#{score[:away_team]}"]=[0,0]
+   end
+  scores.each do |score|
+    if score[:home_score]>score[:away_score]
+        @scoreboard["#{score[:home_team]}"][0]+=1
+        @scoreboard["#{score[:away_team]}"][1]+=1
+    else
+        @scoreboard["#{score[:home_team]}"][1]+=1
+        @scoreboard["#{score[:away_team]}"][0]+=1
     end
   end
-  @teams=params[:team]
 
-
-
+    @x=@scoreboard.sort_by{|k, v| v[0]} #rank based on wins
+    @y=@scoreboard.sort_by{|k, v| v[1]} #rank based on loses
 erb :teams
 end
 
